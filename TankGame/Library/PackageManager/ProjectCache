@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639102378168017009
+      ticks: 639104215379618614
     m_Hash: 2564122160
   m_LockFileStatus:
     m_FilePath: C:/Users/user/Desktop/FioktistovaD_GUN42/TankGame/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639102378168087289
+      ticks: 639104215379710605
     m_Hash: 1041280045
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
