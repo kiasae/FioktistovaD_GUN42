@@ -10,12 +10,14 @@ namespace DefaultNamespace
 		private float _currentDelay;
 		
 		//todo comment: Что произойдёт, если _delay > _duration?
+		//запишется только первая позиция, т.к. таймер _duration закончится раньше чем _delay и скрипт завершит работу
 		private float _delay = 0.5f;
 		private float _duration = 5f;
 
 		private void Start()
 		{
 			//todo comment: Почему этот поиск производится здесь, а не в начале метода Update?
+			//Для улучшения производительности. GetComponent будет производится только один раз в методе Start, а не постоянно как в Update
 			_save = GetComponent<PositionSaver>();
 			_save.Records.Clear();
 		}
@@ -31,6 +33,7 @@ namespace DefaultNamespace
 			}
 			
 			//todo comment: Почему не написать (_delay -= Time.deltaTime;) по аналогии с полем _duration?
+			//потому что _currentDelay это обратный отсчет, а _delay должен оставаться неподвижным
 			_currentDelay -= Time.deltaTime;
 			if (_currentDelay <= 0f)
 			{
@@ -39,6 +42,7 @@ namespace DefaultNamespace
 				{
 					Position = transform.position,
 					//todo comment: Для чего сохраняется значение игрового времени?
+					//чтобы правильно воспроизвести записанное движение с теми же таймингами
 					Time = Time.time,
 				});
 			}

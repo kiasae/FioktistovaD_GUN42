@@ -42,6 +42,7 @@ namespace DefaultNamespace
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireSphere(prev, 0.3f);
 			//todo comment: Почему итерация начинается не с нулевого элемента?
+			//нулевой элемент был обработан до начала цикла и его позиция уже сохранена. если цикл начать с 0, то линия из нулевой точки рисовалась бы в саму себя
 			for (int i = 1; i < data.Count; i++)
 			{
 				var curr = data[i].Position;
@@ -55,10 +56,12 @@ namespace DefaultNamespace
 		[ContextMenu("Create File")]
 		private void CreateFile()
 		{
-			//todo comment: Что происходит в этой строке?
-			var stream = File.Create(Path.Combine(Application.dataPath, "Path.txt"));
-			//todo comment: Подумайте для чего нужна эта строка? (а потом проверьте догадку, закомментировав) 
-			stream.Dispose();
+            //todo comment: Что происходит в этой строке?
+            //создается файл Path.txt в папке Assets проекта. File.Create возвращает открытый FileStream на этот файл
+            var stream = File.Create(Path.Combine(Application.dataPath, "Path.txt"));
+            //todo comment: Подумайте для чего нужна эта строка? (а потом проверьте догадку, закомментировав) 
+            //stream.Dispose снимает блокировку с файла. 
+            stream.Dispose();
 			UnityEditor.AssetDatabase.Refresh();
 			//В Unity можно искать объекты по их типу, для этого используется префикс "t:"
 			//После нахождения, Юнити возвращает массив гуидов (которые в мета-файлах задаются, например)
@@ -69,14 +72,16 @@ namespace DefaultNamespace
 				var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
 				//Этой командой можно загрузить сам ассет
 				var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-				//todo comment: Для чего нужны эти проверки?
-				if(asset != null && asset.name == "Path")
+                //todo comment: Для чего нужны эти проверки?
+                //asset != null защищает от ошибок если не удалось загрузить ассет, asset.name == "Path" отфильтровывает именно только что созданный файл
+                if (asset != null && asset.name == "Path")
 				{
 					_json = asset;
 					UnityEditor.EditorUtility.SetDirty(this);
 					UnityEditor.AssetDatabase.SaveAssets();
 					UnityEditor.AssetDatabase.Refresh();
 					//todo comment: Почему мы здесь выходим, а не продолжаем итерироваться?
+					//потому что мы уже нашли и назначили Path, в дальнейшей итерации нет смысла
 					return;
 				}
 			}
