@@ -8,10 +8,13 @@ namespace DefaultNamespace
 	{
 		private PositionSaver _save;
 		private float _currentDelay;
-		
+
 		//todo comment: Что произойдёт, если _delay > _duration?
 		//запишется только первая позиция, т.к. таймер _duration закончится раньше чем _delay и скрипт завершит работу
+		[Range(0.2f, 1.0f)]
 		private float _delay = 0.5f;
+
+		[Min(0.2f)]
 		private float _duration = 5f;
 
 		private void Start()
@@ -20,6 +23,11 @@ namespace DefaultNamespace
 			//Для улучшения производительности. GetComponent будет производится только один раз в методе Start, а не постоянно как в Update
 			_save = GetComponent<PositionSaver>();
 			_save.Records.Clear();
+
+			if (_duration<= _delay)
+			{
+				_duration = _delay * 5f;
+			}
 		}
 
 		private void Update()

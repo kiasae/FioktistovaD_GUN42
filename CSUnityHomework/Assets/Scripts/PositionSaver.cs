@@ -7,14 +7,18 @@ namespace DefaultNamespace
 {
 	public class PositionSaver : MonoBehaviour
 	{
+		[Serializable]
 		public struct Data
 		{
 			public Vector3 Position;
 			public float Time;
 		}
-
+		[ReadOnly]
+		[Tooltip("для заполнения этого поля нужно воспользоваться контекстным меню в инспекторе и командой \"Create File\"")]
+		[SerializeField]
 		private TextAsset _json;
 
+		[field: SerializeField, HideInInspector]
 		public List<Data> Records { get; private set; }
 
 		private void Awake()
@@ -89,7 +93,13 @@ namespace DefaultNamespace
 
 		private void OnDestroy()
 		{
-			//todo logic...
+			if (_json == null) return;
+
+			string json = JsonUtility.ToJson(this, true);
+			string path = UnityEditor.AssetDatabase.GetAssetPath(_json);
+
+			File.WriteAllText(path, json);
+			UnityEditor.AssetDatabase.Refresh();
 		}
 #endif
 	}
