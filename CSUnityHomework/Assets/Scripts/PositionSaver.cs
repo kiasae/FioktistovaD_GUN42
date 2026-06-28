@@ -23,8 +23,9 @@ namespace DefaultNamespace
 
 		private void Awake()
 		{
-			//todo comment: Что будет, если в теле этого условия не сделать выход из метода?
-			if (_json == null)
+            //todo comment: Что будет, если в теле этого условия не сделать выход из метода?
+            //код будет продолжаться и после того как поймет что файла нет будет ошибка.
+            if (_json == null)
 			{
 				gameObject.SetActive(false);
 				Debug.LogError("Please, create TextAsset and add in field _json");
@@ -32,15 +33,18 @@ namespace DefaultNamespace
 			}
 			
 			JsonUtility.FromJsonOverwrite(_json.text, this);
-			//todo comment: Для чего нужна эта проверка (что она позволяет избежать)?
-			if (Records == null)
+            //todo comment: Для чего нужна эта проверка (что она позволяет избежать)?
+            //Проверяется, был ли создан список Records после загрузки JSON. Если не был, то выдаст список будет пустой и код выдаст ошибку
+
+            if (Records == null)
 				Records = new List<Data>(10);
 		}
 
 		private void OnDrawGizmos()
 		{
-			//todo comment: Зачем нужны эти проверки (что они позволляют избежать)?
-			if (Records == null || Records.Count == 0) return;
+            //todo comment: Зачем нужны эти проверки (что они позволляют избежать)?
+            //они защищают от ошибок. проверяют созданы ли списки и в списках точки
+            if (Records == null || Records.Count == 0) return;
 			var data = Records;
 			var prev = data[0].Position;
 			Gizmos.color = Color.green;
