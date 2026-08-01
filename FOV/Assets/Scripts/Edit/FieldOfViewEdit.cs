@@ -13,15 +13,19 @@ public class FieldOfViewEdit : Editor
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.Radius);
 
-        Vector3 viewAndleLeft = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.Angle / 2);
-        Vector3 viewAndleRight = DirectionFromAngle(fov.transform.eulerAngles.y, fov.Angle / 2);
+        Vector3 viewAngleLeft = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.Angle / 2);
+        Vector3 viewAngleRight = DirectionFromAngle(fov.transform.eulerAngles.y, fov.Angle / 2);
+        Vector3 viewAngleCenter = DirectionFromAngle(fov.transform.eulerAngles.y, 0);
 
         Handles.color = Color.yellow;
 
-        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAndleLeft * fov.Radius);
-        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAndleRight * fov.Radius);
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleLeft * fov.Radius);
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleRight * fov.Radius);
 
-        if(fov.CanSeePlayer)
+        Handles.color = Color.red;
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleCenter * fov.Radius);
+
+        if (fov.CanSeePlayer)
         {
             Handles.color = Color.green;
             Handles.DrawLine(fov.transform.position, fov.Player.transform.position);

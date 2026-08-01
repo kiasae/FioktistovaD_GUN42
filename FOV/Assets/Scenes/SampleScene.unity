@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f064f4b8dac2449bd0cbfa183613d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 3.31
-  _angle: 75
+  _radius: 3
+  _angle: 90
   _player: {fileID: 1592315202}
   _targetMask:
     serializedVersion: 2
@@ -571,8 +571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f064f4b8dac2449bd0cbfa183613d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 3.04
-  _angle: 122
+  _radius: 3
+  _angle: 90
   _player: {fileID: 1592315202}
   _targetMask:
     serializedVersion: 2
@@ -774,7 +774,7 @@ Transform:
   m_GameObject: {fileID: 1387601551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.11, z: 1.61}
+  m_LocalPosition: {x: 0.19, y: 1.11, z: 1.61}
   m_LocalScale: {x: 1, y: 0.74538, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -792,8 +792,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f064f4b8dac2449bd0cbfa183613d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 2.92
-  _angle: 141
+  _radius: 3
+  _angle: 90
   _player: {fileID: 1592315202}
   _targetMask:
     serializedVersion: 2
@@ -904,7 +904,7 @@ Transform:
   m_GameObject: {fileID: 1592315196}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.11, z: 4.03}
+  m_LocalPosition: {x: -0.26, y: 1.11, z: 4.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -922,15 +922,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f064f4b8dac2449bd0cbfa183613d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 0
-  _angle: 0
-  _player: {fileID: 0}
+  _radius: 4
+  _angle: 90
+  _player: {fileID: 1592315202}
   _targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!114 &1592315202
 MonoBehaviour:
   m_ObjectHideFlags: 0
