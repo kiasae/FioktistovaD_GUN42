@@ -11,22 +11,18 @@ public class CollectStateBehaviour : StateMachineBehaviour
 
     private float timer;
 
-    override public void OnStateEnter(
-        Animator animator,
-        AnimatorStateInfo stateInfo,
-        int layerIndex)
+    override public void OnStateEnter(Animator animator,AnimatorStateInfo stateInfo,int layerIndex)
     {
         agent = animator.GetComponent<NavMeshAgent>();
 
-        timer = 0f;
+        CharacterAI characterAI = animator.GetComponent<CharacterAI>();
 
-        FindTarget(animator);
+        target = characterAI.Target;
+
+        timer = 0f;
     }
 
-    override public void OnStateUpdate(
-        Animator animator,
-        AnimatorStateInfo stateInfo,
-        int layerIndex)
+    override public void OnStateUpdate(Animator animator,AnimatorStateInfo stateInfo,int layerIndex)
     {
         if (target == null)
         {
@@ -36,9 +32,7 @@ public class CollectStateBehaviour : StateMachineBehaviour
 
         agent.SetDestination(target.transform.position);
 
-        float distance = Vector3.Distance(
-            animator.transform.position,
-            target.transform.position
+        float distance = Vector3.Distance(animator.transform.position,target.transform.position
         );
 
         if (distance <= collectDistance)
@@ -47,28 +41,14 @@ public class CollectStateBehaviour : StateMachineBehaviour
 
             if (timer >= collectTime)
             {
+                CharacterAI characterAI =animator.GetComponent<CharacterAI>();
+
                 Destroy(target);
 
+                characterAI.Target = null;
                 target = null;
 
                 animator.SetTrigger("FinishCollect");
-            }
-        }
-    }
-
-    private void FindTarget(Animator animator)
-    {
-        Collider[] objects = Physics.OverlapSphere(
-            animator.transform.position,
-            5f
-        );
-
-        foreach (Collider obj in objects)
-        {
-            if (obj.CompareTag("Collectible"))
-            {
-                target = obj.gameObject;
-                return;
             }
         }
     }

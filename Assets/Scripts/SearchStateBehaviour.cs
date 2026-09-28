@@ -63,7 +63,9 @@ public class SearchStateBehaviour : StateMachineBehaviour
         {
             if (obj.CompareTag("Collectible"))
             {
-                target = obj.gameObject;
+                CharacterAI characterAI = animator.GetComponent<CharacterAI>();
+
+                characterAI.Target = obj.gameObject;
 
                 animator.SetTrigger("StartCollect");
 
