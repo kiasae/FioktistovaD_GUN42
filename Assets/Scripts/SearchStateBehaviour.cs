@@ -7,7 +7,6 @@ public class SearchStateBehaviour : StateMachineBehaviour
     public float detectionRadius = 5f;
 
     private NavMeshAgent agent;
-    private GameObject target;
 
     override public void OnStateEnter(
         Animator animator,
@@ -26,8 +25,11 @@ public class SearchStateBehaviour : StateMachineBehaviour
     {
         FindCollectible(animator);
 
+        animator.SetFloat("Speed", agent.velocity.magnitude);
+
         if (!agent.pathPending &&
-            agent.remainingDistance <= 0.5f)
+            (!agent.hasPath ||
+             agent.remainingDistance <= agent.stoppingDistance))
         {
             SetRandomDestination(animator);
         }
@@ -63,7 +65,8 @@ public class SearchStateBehaviour : StateMachineBehaviour
         {
             if (obj.CompareTag("Collectible"))
             {
-                CharacterAI characterAI = animator.GetComponent<CharacterAI>();
+                CharacterAI characterAI =
+                    animator.GetComponent<CharacterAI>();
 
                 characterAI.Target = obj.gameObject;
 
